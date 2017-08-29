@@ -1,4 +1,8 @@
 module Planet (
+  Planet,
+  create,
+  addMarker,
+  checkMarker,
 ) where
 
 import Data.Set (Set)
@@ -13,11 +17,19 @@ data Planet = Planet {
 } deriving (Show, Eq)
 
 create :: Int -> Int -> Planet
-create = undefined
+create w h = Planet { width = w, height = h, markers = Set.empty }
 
 addMarker :: Planet -> Coord -> Heading -> Planet
-addMarker = undefined
+addMarker planet coord direction =
+  let
+    marker = (coord, direction)
+  in
+    planet { markers = Set.insert marker $ markers planet }
 
 checkMarker :: Planet -> Coord -> Heading -> Bool
-checkMarker = undefined
+checkMarker planet coord direction =
+  let
+    marker = (coord, direction)
+  in
+    Set.member marker $ markers planet
 
