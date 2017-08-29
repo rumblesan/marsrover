@@ -23,15 +23,17 @@ test_planetCreation =
     result = Planet.create w h
     expected = Planet.create w h
   in
-    assertEqual "" expected result
+    assertEqual "Planet can be created" expected result
 
 test_planetMarker :: Assertion
 test_planetMarker =
   let
-    coords = (4, 3)
+    incoords = (4, 3)
+    outcoords = (3, 3)
     heading = North
-    planet = Planet.addMarker (Planet.create 5 4) coords heading
-    expected = True
+    planet = Planet.addMarker (Planet.create 5 4) incoords heading
   in
-    assertEqual "" expected (Planet.checkMarker planet coords heading)
+    do
+      assertEqual "Marker exists" True (Planet.checkMarker planet incoords heading)
+      assertEqual "Marker does not exist" False (Planet.checkMarker planet outcoords heading)
 
