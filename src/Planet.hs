@@ -10,7 +10,7 @@ data Planet = Planet {
   width :: Int,
   height :: Int,
   markers :: Set (Coord, Heading)
-}
+} deriving (Show, Eq)
 
 create :: Int -> Int -> Planet
 create = undefined
