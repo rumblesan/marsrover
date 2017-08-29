@@ -6,7 +6,7 @@ module Bot (
 ) where
 
 import Commands
-data Heading = North | East | South | West deriving (Eq, Show)
+data Heading = North | East | South | West deriving (Eq, Show, Ord)
 
 type Coord = (Int, Int)
 
