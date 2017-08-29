@@ -2,6 +2,7 @@ module Bot (
   Coord,
   Bot(..),
   Heading(..),
+  create,
   commandBot
 ) where
 
@@ -14,6 +15,9 @@ data Bot = Bot {
   position :: Coord,
   heading :: Heading
 } deriving (Eq, Show)
+
+create :: Int -> Int -> Heading -> Bot
+create x y h = Bot { position = (x, y), heading = h }
 
 commandBot :: Bot -> Command -> Bot
 commandBot bot command =
