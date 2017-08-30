@@ -42,10 +42,12 @@ test_checkCoords =
   let
     planet = Planet.create 5 5
     badCoords = (7, 3)
+    edgeCoords = (5, 3)
     goodCoords = (1, 1)
     negativeCoords = (-1, 2)
   in
     do
       assertEqual "Bad coords are caught" False (Planet.checkCoords planet badCoords)
       assertEqual "Good coords are ok" True (Planet.checkCoords planet goodCoords)
+      assertEqual "Edge coords are ok" True (Planet.checkCoords planet edgeCoords)
       assertEqual "Negative coords are caught" False (Planet.checkCoords planet negativeCoords)

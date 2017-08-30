@@ -29,5 +29,5 @@ checkMarker planet coord =
     Set.member coord $ markers planet
 
 checkCoords :: Planet -> Coord -> Bool
-checkCoords (Planet w h _) (x, y) = x < w && x >= 0 && y < h && y >= 0
+checkCoords (Planet w h _) (x, y) = x <= w && x >= 0 && y <= h && y >= 0
 
