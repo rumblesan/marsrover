@@ -9,6 +9,8 @@ import qualified Planet
 import Commands
 import Explore
 
+import Control.Monad.State.Strict
+
 exploreTests :: Test
 exploreTests =
   testGroup "Explore Tests" [
@@ -23,7 +25,7 @@ test_runSingleBot =
     planet = Planet.create 5 3
     bot = Bot.create 1 1 Bot.East
     commands = "RFRFRFRF"
-    (_, b) = runBot planet bot commands
+    b = evalState (runBot bot commands) planet
     expected = Right $ Bot.create 1 1 Bot.East
   in
     assertEqual "" expected b
@@ -32,9 +34,15 @@ test_runMultipleMissions :: Assertion
 test_runMultipleMissions =
   let
     planet = Planet.create 5 3
-    missions = [ (Bot.create 1 1 Bot.East, "RFRFRFRF"), (Bot.create 3 2 Bot.North, "FRRFLLFFRRFLL"), (Bot.create 0 3 Bot.West, "LLFFFLFLFL") ]
-    bots = runMissions planet missions
-    expected = [ Right $ Bot.create 1 1 Bot.East, Left $ Bot.create 3 3 Bot.North, Right $ Bot.create 2 3 Bot.South ]
+    missions = [
+      (Bot.create 1 1 Bot.East, "RFRFRFRF"),
+      (Bot.create 3 2 Bot.North, "FRRFLLFFRRFLL"),
+      (Bot.create 0 3 Bot.West, "LLFFFLFLFL") ]
+    bots = evalState (runMissions missions) planet
+    expected = [
+      Right $ Bot.create 1 1 Bot.East,
+      Left $ Bot.create 3 3 Bot.North,
+      Right $ Bot.create 2 3 Bot.South ]
   in
     assertEqual "" expected bots
 

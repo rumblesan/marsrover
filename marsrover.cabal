@@ -21,6 +21,7 @@ library
                      , Explore
   build-depends:       base >= 4.7 && < 5
                      , containers
+                     , mtl
   default-language:    Haskell2010
 
 executable marsrover-exe
@@ -39,6 +40,7 @@ test-suite marsrover-test
                      , HUnit
                      , test-framework
                      , test-framework-hunit
+                     , mtl
                      , marsrover
   other-modules:       Tests.Bot
                      , Tests.Planet
