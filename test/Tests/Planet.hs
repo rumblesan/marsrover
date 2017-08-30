@@ -31,12 +31,11 @@ test_planetMarker =
   let
     incoords = (4, 3)
     outcoords = (3, 3)
-    heading = North
-    planet = Planet.addMarker (Planet.create 5 4) incoords heading
+    planet = Planet.addMarker (Planet.create 5 4) incoords
   in
     do
-      assertEqual "Marker exists" True (Planet.checkMarker planet incoords heading)
-      assertEqual "Marker does not exist" False (Planet.checkMarker planet outcoords heading)
+      assertEqual "Marker exists" True (Planet.checkMarker planet incoords)
+      assertEqual "Marker does not exist" False (Planet.checkMarker planet outcoords)
 
 test_checkCoords :: Assertion
 test_checkCoords =
