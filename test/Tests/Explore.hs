@@ -7,7 +7,7 @@ import Test.Framework.Providers.HUnit (testCase)
 import qualified Bot
 import qualified Planet
 import Commands
-import Explore
+import Explore (runMission, runMissions, Mission(..))
 
 import Control.Monad.State.Strict
 
@@ -23,9 +23,8 @@ test_runSingleBot :: Assertion
 test_runSingleBot =
   let
     planet = Planet.create 5 3
-    bot = Bot.create 1 1 Bot.East
-    commands = "RFRFRFRF"
-    b = evalState (runBot bot commands) planet
+    mission = Mission 1 1 Bot.East "RFRFRFRF"
+    b = evalState (runMission mission) planet
     expected = Right $ Bot.create 1 1 Bot.East
   in
     assertEqual "" expected b
@@ -35,9 +34,9 @@ test_runMultipleMissions =
   let
     planet = Planet.create 5 3
     missions = [
-      (Bot.create 1 1 Bot.East, "RFRFRFRF"),
-      (Bot.create 3 2 Bot.North, "FRRFLLFFRRFLL"),
-      (Bot.create 0 3 Bot.West, "LLFFFLFLFL") ]
+      Mission 1 1 Bot.East "RFRFRFRF",
+      Mission 3 2 Bot.North "FRRFLLFFRRFLL",
+      Mission 0 3 Bot.West "LLFFFLFLFL" ]
     bots = evalState (runMissions missions) planet
     expected = [
       Right $ Bot.create 1 1 Bot.East,
