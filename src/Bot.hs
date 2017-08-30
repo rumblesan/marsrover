@@ -7,14 +7,27 @@ module Bot (
 ) where
 
 import Commands
-data Heading = North | East | South | West deriving (Eq, Show, Ord, Read)
+data Heading = North | East | South | West deriving (Eq, Ord, Read)
+
+instance Show Heading where
+  show North = "N"
+  show South = "S"
+  show East = "E"
+  show West = "W"
 
 type Coord = (Int, Int)
 
 data Bot = Bot {
   position :: Coord,
   heading :: Heading
-} deriving (Eq, Show)
+} deriving (Eq)
+
+instance Show Bot where
+  show bot =
+    let
+      (x, y) = position bot
+    in
+      show x ++ " " ++ show y ++ " " ++ show (heading bot)
 
 create :: Int -> Int -> Heading -> Bot
 create x y h = Bot { position = (x, y), heading = h }

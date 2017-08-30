@@ -5,7 +5,7 @@ import Control.Monad.State.Strict
 import Planet (Planet)
 import qualified Planet
 
-import Explore (Mission(..), runMission)
+import Explore (Mission(..), runMission, missionReport)
 
 main :: IO ()
 main = do
@@ -26,6 +26,6 @@ main = do
     planet = Planet.create w h
     mission = Mission x y heading commands
     result = evalState (runMission mission) planet
-  print result
+  print $ missionReport result
 
 

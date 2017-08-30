@@ -1,6 +1,7 @@
 module Explore (
   runMission,
   runMissions,
+  missionReport,
   Mission(..)
 ) where
 
@@ -44,5 +45,7 @@ runCommand planet bot command
 runMissions :: [Mission] -> Exploration [Either Bot Bot]
 runMissions = mapM runMission
 
-
+missionReport :: Either Bot Bot -> String
+missionReport (Right bot) = show bot
+missionReport (Left bot) = show bot ++ " LOST"
 
