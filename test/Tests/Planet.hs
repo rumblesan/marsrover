@@ -12,7 +12,8 @@ planetTests :: Test
 planetTests =
   testGroup "Planet Tests" [
     testCase "Planet can be created" test_planetCreation,
-    testCase "Planet can have markers added" test_planetMarker
+    testCase "Planet can have markers added" test_planetMarker,
+    testCase "Coords can be checked for validity" test_checkCoords
   ]
 
 test_planetCreation :: Assertion
@@ -37,3 +38,15 @@ test_planetMarker =
       assertEqual "Marker exists" True (Planet.checkMarker planet incoords heading)
       assertEqual "Marker does not exist" False (Planet.checkMarker planet outcoords heading)
 
+test_checkCoords :: Assertion
+test_checkCoords =
+  let
+    planet = Planet.create 5 5
+    badCoords = (7, 3)
+    goodCoords = (1, 1)
+    negativeCoords = (-1, 2)
+  in
+    do
+      assertEqual "Bad coords are caught" False (Planet.checkCoords planet badCoords)
+      assertEqual "Good coords are ok" True (Planet.checkCoords planet goodCoords)
+      assertEqual "Negative coords are caught" False (Planet.checkCoords planet negativeCoords)

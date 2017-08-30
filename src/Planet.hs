@@ -3,6 +3,7 @@ module Planet (
   create,
   addMarker,
   checkMarker,
+  checkCoords
 ) where
 
 import Data.Set (Set)
@@ -32,4 +33,7 @@ checkMarker planet coord direction =
     marker = (coord, direction)
   in
     Set.member marker $ markers planet
+
+checkCoords :: Planet -> Coord -> Bool
+checkCoords (Planet w h _) (x, y) = x < w && x >= 0 && y < h && y >= 0
 
