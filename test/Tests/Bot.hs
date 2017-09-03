@@ -4,8 +4,9 @@ import           Test.Framework                 (Test, testGroup)
 import           Test.Framework.Providers.HUnit (testCase)
 import           Test.HUnit                     (Assertion, assertEqual)
 
-import           Bot
+import qualified Bot
 import           Commands
+import           Headings
 
 botTests :: Test
 botTests =
@@ -17,14 +18,14 @@ botTests =
 
 test_botTurning :: Assertion
 test_botTurning =
-  let bot = Bot {position = (1, 1), heading = North}
-      result = commandBot bot TurnLeft
-      expected = Bot {position = (1, 1), heading = West}
+  let bot = Bot.create 1 1 North
+      result = Bot.command bot TurnLeft
+      expected = Bot.create 1 1 West
   in assertEqual "" expected result
 
 test_botMovement :: Assertion
 test_botMovement =
-  let bot = Bot {position = (1, 1), heading = East}
-      result = commandBot bot MoveForward
-      expected = Bot {position = (2, 1), heading = East}
+  let bot = Bot.create 1 1 East
+      result = Bot.command bot MoveForward
+      expected = Bot.create 2 1 East
   in assertEqual "" expected result

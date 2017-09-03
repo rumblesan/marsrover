@@ -3,7 +3,7 @@ module Bot
   , Bot(..)
   , Heading(..)
   , create
-  , commandBot
+  , command
   ) where
 
 import           Commands
@@ -24,8 +24,8 @@ instance Show Bot where
 create :: Int -> Int -> Heading -> Bot
 create x y h = Bot {position = (x, y), heading = h}
 
-commandBot :: Bot -> Command -> Bot
-commandBot bot command =
+command :: Bot -> Command -> Bot
+command bot command =
   case command of
     TurnLeft    -> bot {heading = turnLeft $ heading bot}
     TurnRight   -> bot {heading = turnRight $ heading bot}

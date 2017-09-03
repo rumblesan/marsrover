@@ -41,7 +41,7 @@ runCommand planet bot command
   | Planet.checkMarker planet (Bot.position bot) = Right bot
   | otherwise = Left bot
   where
-    nextBot = Bot.commandBot bot command
+    nextBot = Bot.command bot command
 
 runMissions :: [Mission] -> Exploration [Either Bot Bot]
 runMissions = mapM runMission
