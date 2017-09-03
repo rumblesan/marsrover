@@ -6,7 +6,8 @@ import           Test.HUnit                     (Assertion, assertEqual)
 
 import qualified Bot
 import           Commands
-import           Explore                        (Mission (..), runMission,
+import           Explore                        (FailedMission (..),
+                                                 Mission (..), runMission,
                                                  runMissions)
 import           Headings                       (Heading (..))
 import qualified Planet
@@ -40,7 +41,7 @@ test_runMultipleMissions =
       bots = evalState (runMissions missions) planet
       expected =
         [ Right $ Bot.create 1 1 East
-        , Left $ Bot.create 3 3 North
+        , Left $ LostBot $ Bot.create 3 3 North
         , Right $ Bot.create 2 3 South
         ]
   in assertEqual "" expected bots

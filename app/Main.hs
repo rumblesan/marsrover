@@ -8,8 +8,8 @@ import           Bot                        (Bot)
 import           Planet                     (Planet)
 import qualified Planet
 
-import           Explore                    (Mission (..), missionReport,
-                                             runMissions)
+import           Explore                    (FailedMission, Mission (..),
+                                             missionReport, runMissions)
 
 main :: IO ()
 main = do
@@ -44,7 +44,7 @@ getMissionData prevMissions = do
     then getMissionData $ mission : prevMissions
     else return $ L.reverse $ mission : prevMissions
 
-printMissionReports :: [Either Bot Bot] -> IO ()
+printMissionReports :: [Either FailedMission Bot] -> IO ()
 printMissionReports reports = do
   putStrLn "\n************ Reports"
   mapM_ (putStrLn . missionReport) reports
