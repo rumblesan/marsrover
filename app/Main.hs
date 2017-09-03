@@ -1,14 +1,15 @@
 module Main where
 
-import Control.Monad (mapM_)
-import Control.Monad.State.Strict
-import qualified Data.List as L
+import           Control.Monad              (mapM_)
+import           Control.Monad.State.Strict
+import qualified Data.List                  as L
 
-import Bot (Bot)
-import Planet (Planet)
+import           Bot                        (Bot)
+import           Planet                     (Planet)
 import qualified Planet
 
-import Explore (Mission(..), runMissions, missionReport)
+import           Explore                    (Mission (..), missionReport,
+                                             runMissions)
 
 main :: IO ()
 main = do
@@ -39,14 +40,11 @@ getMissionData prevMissions = do
   let mission = Mission x y heading commands
   putStrLn "Is there another Mission? (y/n)"
   another <- getLine
-  if another == "y" then
-    getMissionData $ mission : prevMissions
-   else
-    return $ L.reverse $ mission : prevMissions
+  if another == "y"
+    then getMissionData $ mission : prevMissions
+    else return $ L.reverse $ mission : prevMissions
 
 printMissionReports :: [Either Bot Bot] -> IO ()
-printMissionReports reports =
-  do
-    putStrLn "\n************ Reports"
-    mapM_ (putStrLn . missionReport) reports
-
+printMissionReports reports = do
+  putStrLn "\n************ Reports"
+  mapM_ (putStrLn . missionReport) reports
