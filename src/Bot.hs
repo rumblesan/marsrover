@@ -7,19 +7,7 @@ module Bot
   ) where
 
 import           Commands
-
-data Heading
-  = North
-  | East
-  | South
-  | West
-  deriving (Eq, Ord, Read)
-
-instance Show Heading where
-  show North = "N"
-  show South = "S"
-  show East  = "E"
-  show West  = "W"
+import           Headings
 
 type Coord = (Int, Int)
 
