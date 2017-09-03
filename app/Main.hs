@@ -3,12 +3,14 @@ module Main where
 import           Control.Monad              (mapM_)
 import           Control.Monad.State.Strict
 import qualified Data.List                  as L
+import           Data.Maybe                 (catMaybes)
 
 import           Bot                        (Bot)
+import           Commands                   (readCommand)
 import           Planet                     (Planet)
 import qualified Planet
 
-import           Explore                    (FailedMission, Mission (..),
+import           Explore                    (Mission (..), MissionResult,
                                              missionReport, runMissions)
 
 main :: IO ()
@@ -36,7 +38,7 @@ getMissionData prevMissions = do
   putStrLn "What's the Robots starting heading? (North, South, East, West)"
   heading <- read <$> getLine
   putStrLn "What's the Robots command string? (Any combo of L, R and/or F)"
-  commands <- getLine
+  commands <- catMaybes . fmap readCommand <$> getLine
   let mission = Mission x y heading commands
   putStrLn "Is there another Mission? (y/n)"
   another <- getLine
@@ -44,7 +46,7 @@ getMissionData prevMissions = do
     then getMissionData $ mission : prevMissions
     else return $ L.reverse $ mission : prevMissions
 
-printMissionReports :: [Either FailedMission Bot] -> IO ()
-printMissionReports reports = do
+printMissionReports :: [MissionResult] -> IO ()
+printMissionReports results = do
   putStrLn "\n************ Reports"
-  mapM_ (putStrLn . missionReport) reports
+  mapM_ (putStrLn . missionReport) results

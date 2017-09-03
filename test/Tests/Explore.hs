@@ -1,5 +1,6 @@
 module Tests.Explore where
 
+import           Data.Maybe                     (catMaybes)
 import           Test.Framework                 (Test, testGroup)
 import           Test.Framework.Providers.HUnit (testCase)
 import           Test.HUnit                     (Assertion, assertEqual)
@@ -14,6 +15,9 @@ import qualified Planet
 
 import           Control.Monad.State.Strict
 
+parseCommandString :: String -> [Command]
+parseCommandString commandString = catMaybes $ readCommand <$> commandString
+
 exploreTests :: Test
 exploreTests =
   testGroup
@@ -25,7 +29,7 @@ exploreTests =
 test_runSingleBot :: Assertion
 test_runSingleBot =
   let planet = Planet.create 5 3
-      mission = Mission 1 1 East "RFRFRFRF"
+      mission = Mission 1 1 East $ parseCommandString "RFRFRFRF"
       b = evalState (runMission mission) planet
       expected = Right $ Bot.create 1 1 East
   in assertEqual "" expected b
@@ -34,9 +38,9 @@ test_runMultipleMissions :: Assertion
 test_runMultipleMissions =
   let planet = Planet.create 5 3
       missions =
-        [ Mission 1 1 East "RFRFRFRF"
-        , Mission 3 2 North "FRRFLLFFRRFLL"
-        , Mission 0 3 West "LLFFFLFLFL"
+        [ Mission 1 1 East $ parseCommandString "RFRFRFRF"
+        , Mission 3 2 North $ parseCommandString "FRRFLLFFRRFLL"
+        , Mission 0 3 West $ parseCommandString "LLFFFLFLFL"
         ]
       bots = evalState (runMissions missions) planet
       expected =
