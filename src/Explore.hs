@@ -10,6 +10,7 @@ import           Control.Monad.State.Strict
 import           Bot                        (Bot)
 import qualified Bot
 import           Commands
+import           Headings                   (Heading)
 import           Planet                     (Planet)
 import qualified Planet
 
@@ -20,7 +21,7 @@ type Exploration v = State Planet v
 data Mission =
   Mission Int
           Int
-          Bot.Heading
+          Heading
           String
   deriving (Show, Eq)
 

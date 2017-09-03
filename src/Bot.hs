@@ -1,13 +1,12 @@
 module Bot
   ( Coord
   , Bot(..)
-  , Heading(..)
   , create
   , command
   ) where
 
 import           Commands
-import           Headings
+import           Headings (Heading (..))
 
 type Coord = (Int, Int)
 

@@ -9,7 +9,8 @@ module Planet
 import           Data.Set (Set)
 import qualified Data.Set as Set
 
-import           Bot      (Coord, Heading)
+import           Bot      (Coord)
+import           Headings (Heading)
 
 data Planet = Planet
   { width   :: Int

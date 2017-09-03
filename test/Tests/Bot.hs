@@ -6,7 +6,7 @@ import           Test.HUnit                     (Assertion, assertEqual)
 
 import qualified Bot
 import           Commands
-import           Headings
+import           Headings                       (Heading (..))
 
 botTests :: Test
 botTests =

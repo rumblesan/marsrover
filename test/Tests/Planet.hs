@@ -4,7 +4,6 @@ import           Test.Framework                 (Test, testGroup)
 import           Test.Framework.Providers.HUnit (testCase)
 import           Test.HUnit                     (Assertion, assertEqual)
 
-import           Bot                            (Heading (..))
 import           Planet                         (Planet)
 import qualified Planet
 
